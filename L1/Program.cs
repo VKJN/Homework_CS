@@ -1,12 +1,14 @@
-﻿using System.Net.Sockets;
+﻿using System.Diagnostics.Metrics;
+using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks.Dataflow;
 
 namespace L1
 {
     internal class Program
     {
-        // 3, 6 и 7 i don't know how do this
         static void Main(string[] args)
         {
             Console.WriteLine("Enter task number:");
@@ -17,11 +19,11 @@ namespace L1
             {
                 case 1: Task1(); break;
                 case 2: Task2(); break;
-                case 3: Task3(); break;
+                case 3: SolveTask3("Test"); break;
                 case 4: Task4(); break;
                 case 5: Task5(); break;
-                case 6: Task6(); break;
-                case 7: Task7(); break;
+                case 6: Task6("this is a sentence. this is? the second!? sentence!"); break;
+                case 7: Task7("this is a sentence. this is the second sentence"); break;
 
                 default: Console.WriteLine("Unknown task"); break;  
             }
@@ -74,7 +76,7 @@ namespace L1
             // Все то, что нужно вывести
             float[] maxValues = new float[B.Length];
             float[] minValues = new float[B.Length];
-            for (int i=0;i<B.Length; i++)
+            for (int i = 0; i < B.Length; i++)
             {
                 maxValues[i] = B[i].Max();
                 minValues[i] = B[i].Min();
@@ -173,23 +175,23 @@ namespace L1
 
             for (int i = 0; i < arr.Length; i++)
             {
-                for(int j = 0; j < arr[i].Length; j++)
+                for (int j = 0; j < arr[i].Length; j++)
                 {
                     if (mn > arr[i][j]) mn = arr[i][j];
 
-                    else if (mx < arr[i][j]) mx = arr[i][j];
+                    if (mx < arr[i][j]) mx = arr[i][j];
 
                 }
             }
 
-            Console.WriteLine("min: " + mn + " Max: " + mx + "\n");
+            Console.WriteLine("Ьin: " + mn + " Max: " + mx + "\n");
             
             // Подсчет суммы
             int sm = 0;
             bool flag = false;
-            for(int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                for(int j=0;j< arr[i].Length; j++)
+                for (int j = 0; j < arr[i].Length; j++)
                 {
                     if (flag) sm += arr[i][j];
 
@@ -201,9 +203,49 @@ namespace L1
             Console.ReadKey();
         }
 
-        private static void Task3()
+        private static void SolveTask3(string input)
         {
-            
+            string encryptedText = Encrypt(input);
+            Console.WriteLine(encryptedText);
+
+            string decryptedText = Decrypt(encryptedText);
+            Console.WriteLine(decryptedText);
+        }
+
+        private static string Encrypt(string input)
+        {
+            string encryptedText = "";
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    char shiftedChar = (char)(((c - 'a' + 3) % 26) + 'a');
+                    encryptedText += shiftedChar;
+                }
+                else
+                {
+                    encryptedText += c;
+                }
+            }
+            return encryptedText;
+        }
+
+        private static string Decrypt(string input)
+        {
+            string decryptedText = "";
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    char shiftedChar = (char)(((c - 'a' - 3) % 26) + 'a');
+                    decryptedText += shiftedChar;
+                }
+                else
+                {
+                    decryptedText += c;
+                }
+            }
+            return decryptedText;
         }
 
         private static void Task4()
@@ -309,14 +351,29 @@ namespace L1
             Console.ReadKey();
         }
 
-        private static void Task6()
+        private static void Task6(string sentence)
         {
-            
+            string[] sentences = Regex.Split(sentence, @"(?<=[\.!\?])\s+");
+
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                sentences[i] = char.ToUpper(sentences[i][0]) + sentences[i].Substring(1);
+            }
+            string result = string.Join(" ", sentences);
+            Console.WriteLine(result);
         }
 
-        private static void Task7()
+        private static void Task7(string input)
         {
+            string[] bannedWords = { "this" };
+            string censoredText = input;
 
+            foreach (string word in bannedWords)
+            {
+                censoredText = censoredText.Replace(word, new string('*', word.Length));
+            }
+
+            Console.WriteLine(censoredText);
         }
     }
 }
