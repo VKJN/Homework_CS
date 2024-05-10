@@ -19,7 +19,7 @@ namespace L1
             {
                 case 1: Task1(); break;
                 case 2: Task2(); break;
-                case 3: SolveTask3("Test"); break;
+                case 3: Task3("Test"); break;
                 case 4: Task4(); break;
                 case 5: Task5(); break;
                 case 6: Task6("this is a sentence. this is? the second!? sentence!"); break;
@@ -203,7 +203,7 @@ namespace L1
             Console.ReadKey();
         }
 
-        private static void SolveTask3(string input)
+        private static void Task3(string input)
         {
             string encryptedText = Encrypt(input);
             Console.WriteLine(encryptedText);
