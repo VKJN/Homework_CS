@@ -1,4 +1,5 @@
-﻿namespace L7
+﻿using NumberGenerators;
+namespace L7
 {
     internal static class Program
     {
@@ -32,27 +33,22 @@
             Console.WriteLine("Enter count of numbers to generate:");
             int countToGenerate = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Choose one of supported number generators: odd");
+            Console.WriteLine("Choose one of supported number generators: odd, even");
             string generatorName = Console.ReadLine();
 
-            OddNumberGenerator numberGenerator;
-                    
+            NumberGenerator numberGenerator;
+
             switch (generatorName)
             {
                 case "odd":
                     numberGenerator = new OddNumberGenerator();
                     break;
+                case "even":
+                    numberGenerator = new EvenNumberGenerator();
+                    break;
                 default:
                     throw new ApplicationException($"Unknown generator: {generatorName}");
             }
-
-            for (int i = 0; i < countToGenerate; i++)
-            {
-                int generatedNumber = numberGenerator.Next();
-                Console.WriteLine($"Generated number {i + 1}: {generatedNumber}");
-            }
-
-            Console.WriteLine("Press any key to finish...");
         }
     }
 }

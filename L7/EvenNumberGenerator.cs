@@ -1,12 +1,12 @@
 ﻿namespace NumberGenerators
 {
-    public sealed class OddNumberGenerator : NumberGenerator
+    public sealed class EvenNumberGenerator : NumberGenerator
     {
         private int _current;
 
-        public OddNumberGenerator()
+        public EvenNumberGenerator()
         {
-            _current = 1;
+            _current = 0;
         }
 
         public override int Next()
