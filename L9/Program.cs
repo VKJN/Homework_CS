@@ -1,4 +1,6 @@
-﻿namespace L9
+﻿using System.ComponentModel;
+
+namespace L9
 {
     internal class Program
     {
@@ -14,8 +16,6 @@
             }
         }
 
-        delegate void PrintLine();
-
         private static void SolveTask1()
         {
             Console.WriteLine("Введите непробельный символ: ");
@@ -29,27 +29,40 @@
                 return;
             }
 
-            int count = 0;
-            PrintLine printLine = null;
+            Action<char> writeAction = CreateIndexSelectingLambda(1, 3);
+            writeAction += CreateRandomPositionLambda();
 
             for (int i = 0; i < lineCount; i++)
             {
-                printLine += CharAtPosition(nonSpaceChar, ++count);
+                writeAction(nonSpaceChar);
+                Console.WriteLine();
             }
-
-            if (printLine != null) printLine();
         }
 
-        private static PrintLine CharAtPosition(char nonSpaceChar, int count)
+        private static Action<char> CreateIndexSelectingLambda(int indexA, int indexB)
         {
-            Random random = new Random();
-            char[] array = { ' ', ' ', ' ', ' ' };
-            return () =>
+            var random = new Random();
+            return symbol =>
             {
-                int position = random.Next(0, 4);
-                array[position] = nonSpaceChar;
-                Console.Write($"{count} лямбда:");
-                Console.WriteLine(new string(array));
+                int index = random.Next(0, 2) == 1 ? indexA : indexB;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i == index) Console.Write(symbol);
+                    else Console.Write(' ');
+                }
+            };
+        }
+
+        private static Action<char> CreateRandomPositionLambda()
+        {
+            var random = new Random();
+            return symbol =>
+            {
+                int printIndex = random.Next(0, 4);
+                for (int i = 0; i < 4; i++)
+                {
+                    Console.Write(i == printIndex ? symbol : ' ');
+                }
             };
         }
     }
