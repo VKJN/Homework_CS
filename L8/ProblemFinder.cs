@@ -9,6 +9,6 @@
             Text = text;
         }
 
-        public abstract int FindProblem();
+        public abstract Dictionary<string, int> FindProblem();
     }
 }

@@ -54,7 +54,13 @@ namespace L8
 
             if (problemFinder != null)
             {
-                Console.WriteLine($"{problemFinder.FindProblem()} words found");
+                Dictionary<string, int> result = problemFinder.FindProblem();
+                Console.WriteLine("Результат: ");
+                var value = result.Keys;
+                foreach (string key in value)
+                {
+                    Console.WriteLine("Слово: " + key + " / Количество: " + result[key]);
+                }
             }
         }
     }

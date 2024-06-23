@@ -3,15 +3,19 @@
     internal class FinderYourWords : ProblemFinder
     {
         private string[] _words;
+        private Dictionary<string, int> wordsAndTheirNumber = new Dictionary<string, int>();
 
         public FinderYourWords(string text, string[] words) : base(text)
         {
             _words = words;
+            foreach (var word in _words)
+            {
+                wordsAndTheirNumber.Add(word, 0);
+            }
         }
 
-        public override int FindProblem()
+        public override Dictionary<string, int> FindProblem()
         {
-            int count = 0;
             string[] words = Text.Split(new char[] { ' ', '.', ',', '!', '?', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string word in words)
@@ -20,11 +24,11 @@
                 {
                     if (word.Equals(badWord, StringComparison.OrdinalIgnoreCase))
                     {
-                        count++;
+                        wordsAndTheirNumber[badWord] += 1;
                     }
                 }
             }
-            return count;
+            return wordsAndTheirNumber;
         }
     }
 }

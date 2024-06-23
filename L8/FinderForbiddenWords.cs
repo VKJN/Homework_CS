@@ -5,12 +5,20 @@ namespace SearchProblem
     internal class FinderForbiddenWords : ProblemFinder
     {
         private string[] _words = {"fuck", "fucking", "idiot", "nigger", "loser", "bitch" };
+        private Dictionary<string, int> wordsAndTheirNumber = new Dictionary<string, int>() 
+        { 
+            { "fuck", 0 }, 
+            { "fucking", 0 },
+            { "idiot", 0 },
+            { "nigger", 0 },
+            { "loser", 0 },
+            { "bitch", 0 }
+        };
 
         public FinderForbiddenWords(string text) : base(text) { }
 
-        public override int FindProblem()
+        public override Dictionary<string, int> FindProblem()
         {
-            int count = 0;
             string[] words = Text.Split(new char[] { ' ', '.', ',', '!', '?', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string word in words)
@@ -19,11 +27,12 @@ namespace SearchProblem
                 {
                     if (word.Equals(badWord, StringComparison.OrdinalIgnoreCase))
                     {
-                        count++; 
+                        wordsAndTheirNumber[badWord] += 1;
                     }
                 }
             }
-            return count;
+
+            return wordsAndTheirNumber;
         }
     }
 }
