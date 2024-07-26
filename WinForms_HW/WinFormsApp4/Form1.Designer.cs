@@ -68,7 +68,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(pictureBox1);
-            splitContainer1.Size = new Size(827, 635);
+            splitContainer1.Size = new Size(1093, 635);
             splitContainer1.SplitterDistance = 195;
             splitContainer1.TabIndex = 0;
             // 
@@ -97,6 +97,7 @@
             // numDensity
             // 
             numDensity.Location = new Point(10, 81);
+            numDensity.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
             numDensity.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             numDensity.Name = "numDensity";
             numDensity.Size = new Size(120, 23);
@@ -117,7 +118,7 @@
             // 
             numResolution.Location = new Point(10, 31);
             numResolution.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
-            numResolution.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numResolution.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             numResolution.Name = "numResolution";
             numResolution.Size = new Size(120, 23);
             numResolution.TabIndex = 2;
@@ -138,7 +139,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(624, 631);
+            pictureBox1.Size = new Size(890, 631);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             pictureBox1.MouseMove += pictureBox1_MouseMove_1;
@@ -151,7 +152,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(827, 635);
+            ClientSize = new Size(1093, 635);
             Controls.Add(splitContainer1);
             Name = "Form";
             Text = "WinForms";
